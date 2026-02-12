@@ -1,6 +1,7 @@
 package es.fplumara.dam1.textapp.config;
 
 import es.fplumara.dam1.textapp.exceptions.ConfigException;
+import es.fplumara.dam1.textapp.files.StoreType;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +26,7 @@ public class AppConfig {
     public int getMaxLength() {
         return maxLength;
     }
-    public AppConfig() throws IOException {
+    public StoreType AppConfig() throws IOException {
 
         Path path = Path.of("C:\\Users\\RaúlDeMiguelJuan\\aplicacionmini\\data\\config.properties");
         Properties properties = new Properties();
@@ -42,7 +43,14 @@ public class AppConfig {
         maxLength = Integer.parseInt(properties.getProperty("messages.MaxLenght"));
 
 
+        public StoreType getStoreType() {
+            try {
+                return StoreType.valueOf(storeType);
+            }catch (IllegalArgumentException e){
+                throw new ConfigException("Tipo NO VAlido" + storeType);
+            }
 
+        }
     }
 
 
